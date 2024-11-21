@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البحث عن موظف</title>
+</head>
+<body>
+    <h1>البحث عن موظف</h1>
+    <form method="get" action="">
+        <input type="text" name="q" placeholder="أدخل اسم الموظف" value="{{ query|default:'' }}">
+        <button type="submit">بحث</button>
+    </form>
+
+    {% if results is not None %}
+        <h2>نتائج البحث:</h2>
+        {% if results %}
+            <ul>
+                {% for employee in results %}
+                    <li>{{ employee.full_name }} - {{ employee.job_title }} - {{ employee.salary }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>لا توجد نتائج.</p>
+        {% endif %}
+    {% endif %}
+
+    <!-- زر الرجوع -->
+    <a href="{% url 'add_employee' %}" style="display: inline-block; margin-top: 20px; text-decoration: none; padding: 10px 20px; background-color: #007BFF; color: white; border-radius: 5px;">رجوع إلى صفحة الإدخال</a>
+</body>
+</html>
