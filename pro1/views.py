@@ -27,3 +27,16 @@ def search_employee(request):
     if query:
         results = Employee.objects.filter(full_name__icontains=query)  # البحث الجزئي
     return render(request, 'search_employee.html', {'results': results, 'query': query})
+
+
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Employee
+from .forms import EmployeeForm
+
+def search_employee(request):
+    query = request.GET.get('q', '')
+    employees = Employee.objects.filter(full_name__icontains=query)  # البحث بالاسم
+
+    return render(request, 'search_employee.html', {'employees': employees, 'query': query})
